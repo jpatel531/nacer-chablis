@@ -2,22 +2,82 @@
 <head>
   <title>Pusher Test</title>
   <script src="//js.pusher.com/2.2/pusher.min.js"></script>
-  <script>
+  
+</head>
+  <body>
+      <h1 id="drink"></h1>
+
+
+
+<script>
 
     var el = document.getElementById('drink');
 
     var pusher = new Pusher('e6105b6ca815ee6c9b5e');
-    var channel = pusher.subscribe('test_channel');
+    var channel = pusher.subscribe('match-1439948');
     channel.bind('event', drinkingInstruction);
+
+    Pusher.log = function(message) {
+      if (window.console && window.console.log) {
+        window.console.log(message);
+      }
+    };
 
     function drinkingInstruction(data){
       var instruction;
+
+      var player = data.player.first_name + " " + data.player.last_name
       switch(data.name){
         case "Start Half":
-          instruction = "The half just started. Down two shots"
+          instruction = "The half just started. Down three shots bro";
           break;
-        default:
-          
+        case "Throw-In":
+          instruction = player + " takes a throw in. Down a shot bro";
+          break;
+        case "Goal Kick":
+          instruction = player + " takes a goal kick. Down a shot bro";
+          break;
+        case "Corner Kick":
+          instruction = player + " takes a corner kick. Down two shots bro";
+          break;
+        case "Cross":
+          instruction = player + " crossed the ball. Down a shot bro";
+          break;
+        case "Foul":
+          instruction = "OOOOH REF, FARCKIN SEND 'IM OFF! " + player + " fouled " + data.recipient_player.first_name + " " + data.recipient_player.last_name + ". Down four shots"
+          break;
+        case "Free Kick":
+          instruction = player + " takes a free kick. Down a shot"
+          break;
+        case "Offside":
+          instruction = player + " is caught offside - bitch please, he was BORN offside. Down two shots";
+          break;
+        case "Shot on goal":
+          instruction = player + " had a shot on goal. Down two shots"
+          break;
+        case "Goal":
+          instruction = "GOOOOOOOOLLLL!! GOL GOL GOL!!!!! GOL POR " + player + ". Down FIVE shots!!!"
+          break;
+        case "Caution":
+          instruction = "W000T! " + player + " is lucky to still be on the pitch. Yellow card; down two shots";
+          break;
+        case "Half over":
+          instruction = "That's the end of the half. Down a shot";
+          break;
+        case "Substitution":
+          instruction = player + " has been substituted. Down a shot";
+          break;
+        case "Expulsion":
+          instruction = "OH SHIT SON!!!! "+player+ " has been sent off! Down FIVE shots!!"
+          break;
+        case "Injury Time":
+          instruction = "Injury time yo. Down a shot for every minute added on"
+          break;
+        case "Penalty Kick - No Good":
+          instruction = "HE'S MISSED IT!!!!! DOWN 6 SHOTS!!!"
+          break
+          case "Game Over":
+        instruction = "BEEP BEEP BEEEEEEEP. IT'S OVER FOLKS."
           break;
       }
 
@@ -27,8 +87,4 @@
 
 
   </script>
-
-
-  <h1 id="drink"></h1>
-
-</head>
+  </body>
