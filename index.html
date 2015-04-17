@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head>
+  <title>Pusher Test</title>
+  <script src="//js.pusher.com/2.2/pusher.min.js"></script>
+  <script>
+
+    var el = document.getElementById('drink');
+
+    var pusher = new Pusher('e6105b6ca815ee6c9b5e');
+    var channel = pusher.subscribe('test_channel');
+    channel.bind('event', drinkingInstruction);
+
+    function drinkingInstruction(data){
+      var instruction;
+      switch(data.name){
+        case "Start Half":
+          instruction = "The half just started. Down two shots"
+          break;
+        default:
+          
+          break;
+      }
+
+      el.innerText = instruction;
+
+    };
+
+
+  </script>
+
+
+  <h1 id="drink"></h1>
+
+</head>
